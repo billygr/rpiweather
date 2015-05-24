@@ -92,6 +92,13 @@ public:
 class CrestaDecoder : public DecodeOOK {
 public:
 	CrestaDecoder();
+     int decode (word width);
+};
+
+class CrestaDecoder2 : public DecodeOOK {
+public:
+	CrestaDecoder2();
+    void gotBit (char value);
     int decode (word width);
 };
 

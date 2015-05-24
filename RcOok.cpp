@@ -15,6 +15,8 @@
  *        Project home: http://code.google.com/p/rc-switch/
  *
  *   New code to decode OOK signals from weather sensors, etc.
+ *   Updated Cresta decoder from http://forum.jeelabs.net/node/309 as CrestaDecoder2 billygr
+ *
  *   2010-04-11 <jcw@equi4.com> http://opensource.org/licenses/mit-license.php
  *	 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * 	 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -34,7 +36,7 @@
 #include "RCSwitch.h"
 #include "RcOok.h"
 
-//#define TRACE_RCOOK
+#define TRACE_RCOOK
 
 /* ======================================================
  * Master class OOK
@@ -330,6 +332,77 @@
             return -1;
         return 0;
     }
+
+        CrestaDecoder2::CrestaDecoder2 () {}
+// add one bit to the packet data buffer
+void CrestaDecoder2::gotBit (char value) {
+    total_bits++;
+    byte *ptr = data + pos;
+
+    if (++bits < 9) {
+        *ptr = (*ptr >> 1) | (value << 7);
+    } else {
+        if (pos > 0) {
+            *ptr = *ptr ^ (*ptr << 1);
+        }
+
+        bits = 0;
+
+        if (++pos >= sizeof data) {
+            resetDecoder();
+            return;
+        }
+    }
+
+    state = OK;
+}
+   
+     int CrestaDecoder2::decode (word width) {
+        if (pos > 0 && data[0] != 0x75) {
+          //packets start with 0x75!
+          return -1;
+        }
+
+        if (200 <= width && width < 1300) {
+          byte w = width >= 750;
+          switch (state) {
+          case UNKNOWN:
+          case OK:
+            if (w == 0)
+              state = T0;
+            else
+              manchester(1);
+            break;
+          case T0:
+            if (w == 0)
+              manchester(0);
+            else
+              return -1;
+            break;
+          }
+
+          if (pos > 6) {
+            byte len = 3 + ((data[2] >> 1) & 0x1f); //total packet len
+            byte csum = 0;
+            for (byte x = 1; x < len-1; x++) {
+              csum ^= data[x];
+            }
+
+            if (len == pos) {
+              if (csum == 0) {
+                return 1;
+              } 
+              else {
+                return -1;
+              }
+            }
+          } 
+        } 
+        else
+          return -1;
+
+        return 0;
+      }
 
 /* ======================================================
  * KakuDecoder
