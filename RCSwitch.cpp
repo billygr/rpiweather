@@ -38,7 +38,7 @@ bool RCSwitch::OokAvailableCode;
 OregonDecoderV2 orscV2;
 OregonDecoderV3 orscV3;
 RCSwitch_ rcswp1;
-//CrestaDecoder cres;
+CrestaDecoder cres;
 //KakuDecoder kaku;
 //XrfDecoder xrf;
 //HezDecoder hez;
@@ -160,8 +160,8 @@ void RCSwitch::handleInterrupt() {
 	  if (orscV2.nextPulse(p)) 	{ RCSwitch::OokAvailableCode = true; orscV2.sprint("OSV2 ",RCSwitch::OokReceivedCode); orscV2.resetDecoder(); }
 	  if (orscV3.nextPulse(p)) 	{ RCSwitch::OokAvailableCode = true; orscV3.sprint("OSV3 ",RCSwitch::OokReceivedCode); orscV3.resetDecoder(); }
 	  if (rcswp1.nextPulse(p)) 	{ RCSwitch::OokAvailableCode = true; rcswp1.sprint("ALRM ",RCSwitch::OokReceivedCode); rcswp1.resetDecoder(); }
+	  if (cres.nextPulse(p)) 	{ RCSwitch::OokAvailableCode = true; cres.sprint("CRES ",RCSwitch::OokReceivedCode); cres.resetDecoder(); }
 
-	//  if (cres.nextPulse(p)) 	{ cres.print("CRES"); cres.resetDecoder(); }
 	//  if (kaku.nextPulse(p)) 	{ kaku.print("KAKU"); kaku.resetDecoder(); }
 	//  if (xrf.nextPulse(p))  	{ xrf.print("XRF"); xrf.resetDecoder(); }
 	//  if (hez.nextPulse(p)) 	{ hez.print("HEZ"); hez.resetDecoder(); }
