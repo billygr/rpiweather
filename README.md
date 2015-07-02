@@ -1,7 +1,9 @@
 # Raspberry Pi 433 MHz Decoder
 
 ## Dependencies
-You will also need wiring PI installed
+### WiringPi
+
+http://wiringpi.com/download-and-install/
 
 ## Compile
 run make
