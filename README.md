@@ -1,7 +1,7 @@
 # Raspberry Pi 433 MHz Decoder
 
 ## Dependencies
-### WiringPi
+* WiringPi
 
 http://wiringpi.com/download-and-install/
 
