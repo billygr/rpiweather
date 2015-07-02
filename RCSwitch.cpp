@@ -147,9 +147,7 @@ void RCSwitch::OokResetAvailable() {
 void RCSwitch::handleInterrupt() {
 
   static unsigned int duration;
-  static unsigned int changeCount;
   static unsigned long lastTime;
-  static unsigned int repeatCount;
 
   long time = micros();
   duration = time - lastTime;
