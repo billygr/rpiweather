@@ -67,7 +67,7 @@ int main(int argc, char *argv[])
 					printf("Temperature: %.2f ",
 					       temperature);
 					printf("Humidity: %02x\r\n ", humidity);
-					data_sparkfun_post(temperature,humidity-24);
+					data_sparkfun_post(temperature,((humidity & 0xF0)>>4) * 10+(humidity & 0xF));
 				}
 			}
 			if (strstr(message, "OSV3") > 0) {
