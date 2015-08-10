@@ -7,8 +7,8 @@ int data_sparkfun_post(float temperature, float humidity)
 	CURL *curl;
 	CURLcode res;
 
-	const char *publicKey = "YOURPRIVATEKEY";
-	const char *privateKey= "YOURPUBLICKEY";
+	const char *publicKey = "YOURPUBLICKEY";
+	const char *privateKey= "YOURPRIVATEKEY";
 
 	char data_sparkfun_url[128];
 	char data_sparkfun_postdata[128];
