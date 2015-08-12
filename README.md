@@ -1,6 +1,10 @@
 # Raspberry Pi Weather Station
 
-Gets data from a Temperature/Humidity Sensor and uploads them to data.sparkfun.com
+Gets data from a 433 MHz Temperature/Humidity Sensor and uploads them to data.sparkfun.com
+
+Google Chart library creates the graphs
+
+Project Web Site: http://www.billy.gr/raspberry-pi-weather-station
 
 ## Dependencies
 * WiringPi
