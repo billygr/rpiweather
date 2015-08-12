@@ -17,7 +17,7 @@ run make
 ## Run
 sudo ./rpiweather
 
-Credits to:
+#Credits
 http://www.disk91.com/2013/technology/hardware/oregon-scientific-sensors-with-raspberry-pi/
 
 Clone of https://github.com/billygr/RPI_Oregon
