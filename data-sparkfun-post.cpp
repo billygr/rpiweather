@@ -8,7 +8,7 @@ int data_sparkfun_post(float temperature, float humidity)
 	CURLcode res;
 
 	const char *publicKey = "YOURPUBLICKEY";
-	const char *privateKey= "YOURPRIVATEKEY";
+	const char *privateKey = "YOURPRIVATEKEY";
 
 	char data_sparkfun_url[128];
 	char data_sparkfun_postdata[128];
@@ -18,10 +18,15 @@ int data_sparkfun_post(float temperature, float humidity)
 	char humidity_string[16];
 
 	snprintf(temperature_string, 6, "%f", temperature);
-	printf("Temperature: %s\r\n", temperature_string);
-	
+
+#ifdef DEBUG
+	printf("data_sparkfun_post Temperature: %s\r\n", temperature_string);
+#endif
 	snprintf(humidity_string, 6, "%f", humidity);
-	printf("Humidity: %s\r\n", humidity_string);
+
+#ifdef DEBUG
+	printf("data_sparkfun_post Humidity: %s\r\n", humidity_string);
+#endif
 
 	strcpy(data_sparkfun_url, "http://data.sparkfun.com/input/");
 	strcat(data_sparkfun_url, publicKey);
