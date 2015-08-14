@@ -1,5 +1,7 @@
-CXXFLAGS=-Wall
+CXXFLAGS=-Wall -DVERSION=\"$(GIT_VERSION)\"
 CCFLAGS=
+
+GIT_VERSION := $(shell git describe --dirty --always --tags)
 
 all: rpiweather
 

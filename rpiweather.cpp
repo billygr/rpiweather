@@ -18,6 +18,8 @@ int main(int argc, char *argv[])
 	float temperature;
 	unsigned char humidity;
 
+	printf("RPIWeather Version: %s\n", VERSION);
+
 	if (wiringPiSetup() == -1) {
 		return 0;
 		printf("failed wiring pi\n");
