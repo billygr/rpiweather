@@ -9,14 +9,14 @@ Project Web Site: http://www.billy.gr/raspberry-pi-weather-station
 ## Dependencies
 * WiringPi
 * libcurl
-* Create a free data stream at data.spark.fun.com and add your private and public keys to data-sparkfun-post.cpp
+* Create a free data stream at data.sparkfun.com and add your private and public keys to data-sparkfun-post.cpp
 
 http://wiringpi.com/download-and-install/
 
 sudo apt-get update && apt-get install libcurl4-openssl-dev 
 
 ## Compile
-run make
+run make (or make debug for more debugging output)
 
 ## Run
 sudo ./rpiweather
