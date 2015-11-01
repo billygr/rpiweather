@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <curl/curl.h>
+#include "heatindex.h"
 
 int data_sparkfun_post(float temperature, float humidity)
 {
@@ -16,6 +17,8 @@ int data_sparkfun_post(float temperature, float humidity)
 
 	char temperature_string[16];
 	char humidity_string[16];
+	char heatindex_string[16];
+	char dewpoint_string[16];
 
 	snprintf(temperature_string, 6, "%f", temperature);
 
@@ -28,6 +31,11 @@ int data_sparkfun_post(float temperature, float humidity)
 	printf("data_sparkfun_post Humidity: %s\r\n", humidity_string);
 #endif
 
+#ifdef DEBUG
+	printf("data_sparkfun_post Heatindex: %s\r\n", heatindex_string);
+#endif
+	snprintf(heatindex_string, 6, "%f", Temperature_C(Heat_Index(Temperature_F(temperature),humidity)));
+
 	strcpy(data_sparkfun_url, "http://data.sparkfun.com/input/");
 	strcat(data_sparkfun_url, publicKey);
 
@@ -38,6 +46,9 @@ int data_sparkfun_post(float temperature, float humidity)
 	strcat(data_sparkfun_postdata, temperature_string);
 	strcat(data_sparkfun_postdata, "&humidity=");
 	strcat(data_sparkfun_postdata, humidity_string);
+	strcat(data_sparkfun_postdata, "&heatindex=");
+	strcat(data_sparkfun_postdata, heatindex_string);
+	strcat(data_sparkfun_postdata, "&dewpoint=0");
 
 	/* In windows, this will init the winsock stuff */
 	curl_global_init(CURL_GLOBAL_ALL);
