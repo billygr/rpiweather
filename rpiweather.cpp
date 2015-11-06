@@ -2,6 +2,7 @@
 #include "RcOok.h"
 #include "Sensor.h"
 #include "data-sparkfun-post.h"
+#include "io-adafruit-post.h"
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
@@ -69,6 +70,8 @@ int main(int argc, char *argv[])
 					printf("Temperature: %.2f ",
 					       temperature);
 					printf("Humidity: %02x\r\n ", humidity);
+					io_adafruit_post("rpiweather_temperature",temperature);
+					io_adafruit_post("rpiweather_humidity",((humidity & 0xF0)>>4) * 10+(humidity & 0xF));
 					data_sparkfun_post(temperature,((humidity & 0xF0)>>4) * 10+(humidity & 0xF));
 				}
 			}
@@ -93,6 +96,7 @@ int main(int argc, char *argv[])
 					     (bytearray[3] & 0xF0)) *
 					    1.006196884;
 					printf("OWL 119 Watts: %d\r\n ", watts);
+					io_adafruit_post("power_consumption",watts);
 
 				}
 			}
