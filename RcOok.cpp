@@ -36,7 +36,7 @@
 #include "RCSwitch.h"
 #include "RcOok.h"
 
-#define TRACE_RCOOK
+//#define TRACE_RCOOK
 
 /* ======================================================
  * Master class OOK
@@ -150,7 +150,10 @@
      */
     void DecodeOOK::sprint(const char * s, char * d) {
     	char v[] = { '0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F' };
+
+#ifdef TRACE_RCOOK
     	char * _d = d;
+#endif
         byte pos;
         const byte* data = this->getData(pos);
         sprintf(d,"%s ",s);
