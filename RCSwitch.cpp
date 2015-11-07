@@ -180,7 +180,7 @@ void RCSwitch::handleInterrupt() {
 // Transmit pulse
 void RCSwitch::transmit(int nHighPulses, int nLowPulses) {
     boolean disabled_Receive = false;
-    int nReceiverInterrupt_backup = nReceiverInterrupt;
+//    int nReceiverInterrupt_backup = nReceiverInterrupt;
     if (this->nTransmitterPin != -1) {
         if (this->nReceiverInterrupt != -1) {
 // XXX voir si on active ou non la reception lors de la tansmission ???
