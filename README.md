@@ -1,6 +1,6 @@
 # Raspberry Pi Weather Station
 
-Gets data from a 433 MHz Temperature/Humidity Sensor and uploads them to data.sparkfun.com
+Gets data from a 433 MHz Temperature/Humidity Sensor and uploads them to data.sparkfun.com and io.adafruit.com
 
 Google Chart library creates the graphs
 
@@ -9,7 +9,7 @@ Project Web Site: http://www.billy.gr/raspberry-pi-weather-station
 ## Dependencies
 * WiringPi
 * libcurl
-* Create a free data stream at data.sparkfun.com and add your private and public keys to data-sparkfun-post.cpp
+* Create a free data stream at data.sparkfun.com (fields:temperature,humidity,heatindex,dewpoint) and add your private and public keys to data-sparkfun-post.cpp
 
 http://wiringpi.com/download-and-install/
 
