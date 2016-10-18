@@ -3,6 +3,7 @@
 #include "Sensor.h"
 #include "data-sparkfun-post.h"
 #include "io-adafruit-post.h"
+#include "emoncms-post.h"
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
@@ -18,6 +19,7 @@ int main(int argc, char *argv[])
 
 	float temperature;
 	unsigned char humidity;
+	int humidity_decimal;
 
 	printf("RPIWeather Version: %s\n", VERSION);
 
@@ -70,9 +72,12 @@ int main(int argc, char *argv[])
 					printf("Temperature: %.2f ",
 					       temperature);
 					printf("Humidity: %02x\r\n ", humidity);
+					humidity_decimal=((humidity & 0xF0)>>4) * 10+(humidity & 0xF);
 					io_adafruit_post("rpiweather-temperature",temperature);
-					io_adafruit_post("rpiweather-humidity",((humidity & 0xF0)>>4) * 10+(humidity & 0xF));
-					data_sparkfun_post(temperature,((humidity & 0xF0)>>4) * 10+(humidity & 0xF));
+					io_adafruit_post("rpiweather-humidity",humidity_decimal);
+					emoncms_post("2","temperature",temperature);
+					emoncms_post("2","humidity",humidity_decimal);
+					data_sparkfun_post(temperature,humidity_decimal);
 				}
 			}
 			if (strstr(message, "OSV3") > 0) {
@@ -80,7 +85,7 @@ int main(int argc, char *argv[])
 				char *OSV3 = message + 5;
 				//printf("OSV3 %s\r\n", OSV3);
 				if (OSV3[0] == '2' && OSV3[1] == 'A') {
-					unsigned int watts;
+					double watts;
 					int i;
 					unsigned int bytearray[12];
 					uint8_t str_len = strlen(OSV3);
@@ -95,8 +100,8 @@ int main(int argc, char *argv[])
 					    ((bytearray[4] * 256) +
 					     (bytearray[3] & 0xF0)) *
 					    1.006196884;
-					printf("OWL 119 Watts: %d\r\n ", watts);
-					io_adafruit_post("power-consumption",watts);
+					printf("OWL 119 Watts: %f\r\n ", watts);
+					if (watts < 10000) {emoncms_post("1","power",watts);}
 
 				}
 			}
