@@ -2,7 +2,7 @@
 #include <string.h>
 #include <curl/curl.h>
 
-int io_adafruit_post(char *feedname, float feedvalue)
+int io_adafruit_post(char const *feedname, float feedvalue)
 {
 	CURL *curl;
 	CURLcode res;
