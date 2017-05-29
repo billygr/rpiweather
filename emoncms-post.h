@@ -1,6 +1,6 @@
 #ifndef EMONCMSPOST
 #define EMONCMSPOST
 
-int emoncms_post(char *node, char *key, float nodevalue);
+int emoncms_post(char const *node, char const *key, float nodevalue);
 
 #endif

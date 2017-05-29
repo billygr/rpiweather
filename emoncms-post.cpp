@@ -2,7 +2,7 @@
 #include <string.h>
 #include <curl/curl.h>
 
-int emoncms_post(char *node, char *key, float nodevalue)
+int emoncms_post(char const *node, char const *key, float nodevalue)
 {
 	CURL *curl;
 	CURLcode res;
