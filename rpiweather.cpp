@@ -1,7 +1,6 @@
 #include "RCSwitch.h"
 #include "RcOok.h"
 #include "Sensor.h"
-#include "data-sparkfun-post.h"
 #include "io-adafruit-post.h"
 #include "emoncms-post.h"
 #include <stdlib.h>
@@ -47,7 +46,7 @@ int main(int argc, char *argv[])
 				//printf ("CRES2 %s\r\n",CRES2);
 				if (CRES2[0] == '7' && CRES2[1] == '5') {
 
-					int i;
+					unsigned int i;
 					unsigned int bytearray[12];
 					unsigned int str_len = strlen(CRES2);
 
@@ -77,7 +76,6 @@ int main(int argc, char *argv[])
 					io_adafruit_post("rpiweather-humidity",humidity_decimal);
 					emoncms_post("2","temperature",temperature);
 					emoncms_post("2","humidity",humidity_decimal);
-					data_sparkfun_post(temperature,humidity_decimal);
 				}
 			}
 			if (strstr(message, "OSV3") > 0) {
